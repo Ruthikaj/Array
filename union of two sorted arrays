@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> findUnion(vector<int> &a, vector<int> &b) 
+    {
+        set<int> st;  // Step 1: Create a set to store unique elements
+        
+        // Step 2: Insert elements from the first array
+        for (auto it : a)  // Loop through each element 'it' in array 'a'
+            st.insert(it); // Insert the element into the set (duplicates are ignored)
+        
+        // Dry run example:
+        // Input: a = [1, 2, 3, 4, 5]
+        // After this loop, st = {1, 2, 3, 4, 5}
+
+        // Step 3: Insert elements from the second array
+        for (auto it : b)  // Loop through each element 'it' in array 'b'
+            st.insert(it); // Insert the element into the set (duplicates are ignored)
+        
+        // Dry run example:
+        // Input: b = [1, 2, 3, 6, 7]
+        // After this loop, st = {1, 2, 3, 4, 5, 6, 7}
+
+        // Step 4: Create a vector from the set
+        vector<int> vec(st.begin(), st.end()); // Create a vector 'vec' containing all elements from the set
+        
+        // Dry run:
+        // vec = [1, 2, 3, 4, 5, 6, 7]
+
+        return vec; // Step 5: Return the vector containing the union of the two arrays
+    }
+};
