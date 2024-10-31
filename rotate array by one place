@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();          // Get the size of the array, n = 7 for [1,2,3,4,5,6,7]
+        
+        // Adjust k to be within bounds of n
+        k = k % n;                    // k = 3 % 7 = 3, so we need to rotate the array by 3 steps
+
+        // Step 1: Reverse the entire array
+        reverse(nums.begin(), nums.end());  
+        // Array after reversing: [7,6,5,4,3,2,1]
+        // Explanation: All elements are now in reverse order, making it easier to place the last 'k' elements at the start.
+        
+        // Step 2: Reverse the first k elements
+        reverse(nums.begin(), nums.begin() + k);  
+        // Array after reversing first 3 elements (7, 6, 5): [5,6,7,4,3,2,1]
+        // Explanation: The first k elements are now in their final rotated positions.
+        
+        // Step 3: Reverse the remaining n - k elements
+        reverse(nums.begin() + k, nums.end());  
+        // Array after reversing elements from index 3 to the end (4,3,2,1): [5,6,7,1,2,3,4]
+        // Explanation: The remaining elements are in order, finalizing the right rotation by k steps.
+    }
+};
