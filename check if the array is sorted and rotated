@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool check(vector<int>& nums) {
+        // Step 1: Get the size of the array
+        int n = nums.size();  // n = 5 (for nums = [3, 4, 5, 1, 2])
+
+        // Step 2: Initialize a counter to track the "rotation breaks"
+        int cnt = 0;  // Initialize cnt = 0
+
+        // Step 3: Loop through the array from the second element to the last
+        // and check for "rotation breaks"
+        for (int i = 1; i < n; i++) {
+            if (nums[i - 1] > nums[i]) {  // Compare each element with the previous
+                cnt++;  // If a previous element is greater, increment cnt
+            }
+            // Dry run for nums = [3, 4, 5, 1, 2]:
+            // i = 1: nums[0] = 3, nums[1] = 4 (3 < 4, no break, cnt = 0)
+            // i = 2: nums[1] = 4, nums[2] = 5 (4 < 5, no break, cnt = 0)
+            // i = 3: nums[2] = 5, nums[3] = 1 (5 > 1, break found, cnt = 1)
+            // i = 4: nums[3] = 1, nums[4] = 2 (1 < 2, no break, cnt = 1)
+        }
+
+        // Step 4: Check for a rotation break between the last and first elements
+        if (nums[n - 1] > nums[0]) {  // Compare last element with first
+            cnt++;  // If last element is greater than first, increment cnt
+        }
+        // Dry run continuation for nums = [3, 4, 5, 1, 2]:
+        // nums[4] = 2, nums[0] = 3 (2 < 3, no break here, cnt remains 1)
+
+        // Step 5: Return true if cnt <= 1, else false
+        return cnt <= 1;  // cnt = 1, so we return true
+    }
+};
+
+// Explanation of the example `nums = [3, 4, 5, 1, 2]`:
+// 1. We found one rotation break between 5 and 1.
+// 2. We checked the last and first elements, which were in order (2 < 3).
+// 3. Since cnt is 1, which is <= 1, the array is considered sorted and rotated, so the function returns true.
