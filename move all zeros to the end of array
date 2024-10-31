@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int j = -1;  // Initialize j to -1, which will be used to track the first occurrence of a 0
+
+        // Step 1: Find the first 0 in the array
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] == 0) {  // If we find a zero,
+                j = i;           // set j to this index
+                break;           // exit the loop
+            }
+        }
+        
+        // Check if there was no zero found or if j is the last element
+        if (j == -1) {           // If no zero was found, or only zeros at the end
+            return;              // we're done since no move is needed
+        }
+
+        // Step 2: Move all non-zero elements to the left of the found zero
+        for (int i = j + 1; i < nums.size(); i++) {  // Start from j+1, the element after the first zero
+            if (nums[i] != 0) {                      // If a non-zero element is found,
+                swap(nums[i], nums[j]);              // swap it with nums[j] (first zero position)
+                j++;                                 // increment j to the next zero position
+            }
+        }
+    }
+};
