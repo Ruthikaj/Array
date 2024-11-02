@@ -1,0 +1,204 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();          // Get the size of the input array
+        int sum = 0;                  // Initialize the current subarray sum to 0
+        int maxi = INT_MIN;           // Initialize the maximum sum found to the smallest integer
+
+        // Example dry run with nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+        // Initial values:
+        // nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+        // i    |   sum   |  maxi
+        // -------------------------
+        // -    |    0    | INT_MIN
+
+        // Start iterating over the elements of the array
+        for(int i = 0; i < n; i++) {   // Loop through each element in the array
+            sum += nums[i];             // Add the current element to sum
+
+            // Print current state for debugging
+            // After adding nums[i]:
+            //    i |    sum    |    maxi
+            //    ------------------------
+            //     0 |    -2     |  INT_MIN  (i=0: sum = -2)
+            //     1 |     1     |     1     (i=1: sum = -2 + 1 = 1)
+            //     2 |    -2     |     1     (i=2: sum = 1 - 3 = -2)
+            //     3 |     4     |     4     (i=3: sum = -2 + 4 = 4)
+            //     4 |     3     |     4     (i=4: sum = 4 - 1 = 3)
+            //     5 |     5     |     5     (i=5: sum = 3 + 2 = 5)
+            //     6 |     6     |     6     (i=6: sum = 5 + 1 = 6)
+            //     7 |     1     |     6     (i=7: sum = 6 - 5 = 1)
+            //     8 |     5     |     6     (i=8: sum = 1 + 4 = 5)
+
+            if (sum > maxi) {           // Check if the current sum is greater than the maximum found so far
+                maxi = sum;            // Update the maximum sum if the current sum is greater
+            }
+
+            if (sum < 0) {             // If the sum becomes negative
+                sum = 0;               // Reset the sum to 0, as starting fresh may yield a larger sum
+            }
+        }
+        return maxi;                   // Return the maximum sum found
+    }
+};
+
+Certainly! Let’s perform a detailed dry run of each part of the `maxSubArray` function, breaking down the code step by step and explaining how each part operates with a specific example. Here’s the code again with added comments for clarity:
+
+```cpp
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();          // Get the size of the input array
+        int sum = 0;                  // Initialize the current subarray sum to 0
+        int maxi = INT_MIN;           // Initialize the maximum sum found to the smallest integer
+
+        // Example dry run with nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+        // Initial values:
+        // nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+        // i    |   sum   |  maxi
+        // -------------------------
+        // -    |    0    | INT_MIN
+
+        // Start iterating over the elements of the array
+        for(int i = 0; i < n; i++) {   // Loop through each element in the array
+            sum += nums[i];             // Add the current element to sum
+
+            // Print current state for debugging
+            // After adding nums[i]:
+            //    i |    sum    |    maxi
+            //    ------------------------
+            //     0 |    -2     |  INT_MIN  (i=0: sum = -2)
+            //     1 |     1     |     1     (i=1: sum = -2 + 1 = 1)
+            //     2 |    -2     |     1     (i=2: sum = 1 - 3 = -2)
+            //     3 |     4     |     4     (i=3: sum = -2 + 4 = 4)
+            //     4 |     3     |     4     (i=4: sum = 4 - 1 = 3)
+            //     5 |     5     |     5     (i=5: sum = 3 + 2 = 5)
+            //     6 |     6     |     6     (i=6: sum = 5 + 1 = 6)
+            //     7 |     1     |     6     (i=7: sum = 6 - 5 = 1)
+            //     8 |     5     |     6     (i=8: sum = 1 + 4 = 5)
+
+            if (sum > maxi) {           // Check if the current sum is greater than the maximum found so far
+                maxi = sum;            // Update the maximum sum if the current sum is greater
+            }
+
+            if (sum < 0) {             // If the sum becomes negative
+                sum = 0;               // Reset the sum to 0, as starting fresh may yield a larger sum
+            }
+        }
+        return maxi;                   // Return the maximum sum found
+    }
+};
+```
+
+### Step-by-Step Dry Run with Example:
+
+#### Initial Setup:
+- **Input Array**: `nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]`
+- **Variables**:
+  - `n = 9` (length of the array)
+  - `sum = 0` (current subarray sum)
+  - `maxi = INT_MIN` (maximum subarray sum found)
+
+### Iteration Breakdown:
+
+1. **First Iteration (i = 0)**:
+   - `sum = sum + nums[0]` → `sum = 0 + (-2) = -2`
+   - `maxi = max(INT_MIN, -2)` → `maxi = -2` (update maxi)
+   - Check if `sum < 0`: Yes, so `sum = 0`.
+
+   **State after iteration**:
+   ```
+   i = 0 | sum = 0 | maxi = -2
+   ```
+
+2. **Second Iteration (i = 1)**:
+   - `sum = sum + nums[1]` → `sum = 0 + 1 = 1`
+   - `maxi = max(-2, 1)` → `maxi = 1` (update maxi)
+   - Check if `sum < 0`: No.
+
+   **State after iteration**:
+   ```
+   i = 1 | sum = 1 | maxi = 1
+   ```
+
+3. **Third Iteration (i = 2)**:
+   - `sum = sum + nums[2]` → `sum = 1 + (-3) = -2`
+   - `maxi = max(1, -2)` → `maxi = 1` (no update)
+   - Check if `sum < 0`: Yes, so `sum = 0`.
+
+   **State after iteration**:
+   ```
+   i = 2 | sum = 0 | maxi = 1
+   ```
+
+4. **Fourth Iteration (i = 3)**:
+   - `sum = sum + nums[3]` → `sum = 0 + 4 = 4`
+   - `maxi = max(1, 4)` → `maxi = 4` (update maxi)
+   - Check if `sum < 0`: No.
+
+   **State after iteration**:
+   ```
+   i = 3 | sum = 4 | maxi = 4
+   ```
+
+5. **Fifth Iteration (i = 4)**:
+   - `sum = sum + nums[4]` → `sum = 4 + (-1) = 3`
+   - `maxi = max(4, 3)` → `maxi = 4` (no update)
+   - Check if `sum < 0`: No.
+
+   **State after iteration**:
+   ```
+   i = 4 | sum = 3 | maxi = 4
+   ```
+
+6. **Sixth Iteration (i = 5)**:
+   - `sum = sum + nums[5]` → `sum = 3 + 2 = 5`
+   - `maxi = max(4, 5)` → `maxi = 5` (update maxi)
+   - Check if `sum < 0`: No.
+
+   **State after iteration**:
+   ```
+   i = 5 | sum = 5 | maxi = 5
+   ```
+
+7. **Seventh Iteration (i = 6)**:
+   - `sum = sum + nums[6]` → `sum = 5 + 1 = 6`
+   - `maxi = max(5, 6)` → `maxi = 6` (update maxi)
+   - Check if `sum < 0`: No.
+
+   **State after iteration**:
+   ```
+   i = 6 | sum = 6 | maxi = 6
+   ```
+
+8. **Eighth Iteration (i = 7)**:
+   - `sum = sum + nums[7]` → `sum = 6 + (-5) = 1`
+   - `maxi = max(6, 1)` → `maxi = 6` (no update)
+   - Check if `sum < 0`: No.
+
+   **State after iteration**:
+   ```
+   i = 7 | sum = 1 | maxi = 6
+   ```
+
+9. **Ninth Iteration (i = 8)**:
+   - `sum = sum + nums[8]` → `sum = 1 + 4 = 5`
+   - `maxi = max(6, 5)` → `maxi = 6` (no update)
+   - Check if `sum < 0`: No.
+
+   **State after iteration**:
+   ```
+   i = 8 | sum = 5 | maxi = 6
+   ```
+
+### Final Result:
+- The loop completes after iterating through all elements.
+- The maximum subarray sum found is `maxi = 6`.
+
+### Explanation of Logic:
+- **Initialization**: Set the current sum and maximum sum to handle potential negative values.
+- **Loop**: Iterate through each number, continuously updating the current sum and checking if it's the highest encountered.
+- **Resetting Sum**: If the current sum goes negative, it’s reset, as starting fresh may lead to a larger subarray sum in future iterations.
+- **Returning Result**: At the end, return the maximum sum found.
+
+This breakdown illustrates how each part of the code functions step by step, how variables change over the iterations, and how the final result is computed.
