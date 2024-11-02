@@ -1,0 +1,60 @@
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int n = matrix.size();  // Step 1: Get the size of the matrix (n x n)
+
+        // **Step 2:** Transpose the matrix by swapping elements across the diagonal.
+        // **After transposing, rows become columns, which brings us halfway to a 90-degree rotation.**
+        for (int i = 0; i < n; ++i) {              // Loop through each row
+            for (int j = 0; j < i; ++j) {          // Loop through each column up to the diagonal
+                swap(matrix[i][j], matrix[j][i]);  // Swap elements across the diagonal
+            }
+        }
+        
+        // **Dry run example for transposition:**
+        // Input: matrix = [[1, 2, 3],
+        //                  [4, 5, 6],
+        //                  [7, 8, 9]]
+        
+        // After Transposing:
+        // 1. Swap matrix[0][1] (2) with matrix[1][0] (4)
+        //    [[1, 4, 3],
+        //     [2, 5, 6],
+        //     [7, 8, 9]]
+        //
+        // 2. Swap matrix[0][2] (3) with matrix[2][0] (7)
+        //    [[1, 4, 7],
+        //     [2, 5, 6],
+        //     [3, 8, 9]]
+        //
+        // 3. Swap matrix[1][2] (6) with matrix[2][1] (8)
+        //    [[1, 4, 7],
+        //     [2, 5, 8],
+        //     [3, 6, 9]]
+        
+        // Matrix after transposition:
+        // [[1, 4, 7],
+        //  [2, 5, 8],
+        //  [3, 6, 9]]
+
+        // **Step 3:** Reverse each row to complete the 90-degree clockwise rotation.
+        for (int i = 0; i < n; ++i) {  // Loop through each row
+            reverse(matrix[i].begin(), matrix[i].end());  // Reverse the elements in the row
+        }
+
+        // **Dry run for row reversal:**
+        // Transposed matrix: [[1, 4, 7],
+        //                     [2, 5, 8],
+        //                     [3, 6, 9]]
+        
+        // After Reversing Each Row:
+        // Row 0: [1, 4, 7] becomes [7, 4, 1]
+        // Row 1: [2, 5, 8] becomes [8, 5, 2]
+        // Row 2: [3, 6, 9] becomes [9, 6, 3]
+        
+        // Final rotated matrix:
+        // [[7, 4, 1],
+        //  [8, 5, 2],
+        //  [9, 6, 3]]
+    }
+};
