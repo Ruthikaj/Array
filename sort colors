@@ -1,0 +1,45 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int low = 0;                 // Pointer for the next position of 0 (red)
+        int mid = 0;                 // Pointer for the current element
+        int high = nums.size() - 1; // Pointer for the next position of 2 (blue)
+
+        // Initial State: nums = [2, 0, 2, 1, 1, 0]
+        // low = 0, mid = 0, high = 5 (points to the last element)
+
+        // Dry Run Example:
+        // nums = [2, 0, 2, 1, 1, 0]
+        // low = 0
+        // mid = 0
+        // high = 5
+
+        // Start the Dutch National Flag algorithm.
+        while (mid <= high) { // Continue until mid surpasses high
+            // Print current state before processing
+            // Current nums state: [2, 0, 2, 1, 1, 0]
+            // low = 0, mid = 0, high = 5
+            
+            if (nums[mid] == 0) { // Check if the current element is 0
+                // Swap nums[low] and nums[mid]
+                swap(nums[low], nums[mid]); // Swap 2 (nums[0]) with 0 (nums[1])
+                // Before Swap: [2, 0, 2, 1, 1, 0]
+                // After Swap:  [0, 2, 2, 1, 1, 0]
+                low++; // Move the low pointer forward
+                mid++; // Move the mid pointer forward
+            } 
+            else if (nums[mid] == 1) { // Check if the current element is 1
+                mid++; // Just move the mid pointer forward
+            } 
+            else { // Current element is 2
+                // Swap nums[mid] and nums[high]
+                swap(nums[mid], nums[high]); // Swap 2 (nums[0]) with 2 (nums[5])
+                // Before Swap: [0, 2, 2, 1, 1, 0]
+                // After Swap:  [0, 2, 0, 1, 1, 2]
+                high--; // Move the high pointer backward
+                // Notice: mid pointer remains the same because we need to check the new value at mid after swap.
+            }
+        }
+        // Final output state: nums = [0, 0, 1, 1, 2, 2]
+    }
+};
