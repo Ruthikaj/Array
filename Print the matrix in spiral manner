@@ -1,0 +1,103 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> ans;  // To store the result in spiral order.
+
+        int n = matrix.size();      // Number of rows (n = 3 for this example).
+        int m = matrix[0].size();   // Number of columns (m = 3 for this example).
+  
+        // Initialize pointers for boundary tracking.
+        int top = 0, left = 0, bottom = n - 1, right = m - 1;
+
+        // Loop until we traverse all elements in the matrix.
+        while (top <= bottom && left <= right) {
+
+            // **Step 1: Traverse from Left to Right**
+            for (int i = left; i <= right; i++) {
+                ans.push_back(matrix[top][i]);  // Add elements in the top row.
+            }
+            top++;  // Move top boundary down.
+
+            // After this step:
+            // ans = [1, 2, 3]
+            // top = 1, left = 0, bottom = 2, right = 2
+            // Current state of matrix:
+            /*
+              [1, 2, 3]
+              [4, 5, 6]
+              [7, 8, 9]
+            */
+
+            // **Step 2: Traverse from Top to Bottom**
+            for (int i = top; i <= bottom; i++) {
+                ans.push_back(matrix[i][right]);  // Add elements in the right column.
+            }
+            right--;  // Move right boundary left.
+
+            // After this step:
+            // ans = [1, 2, 3, 6, 9]
+            // top = 1, left = 0, bottom = 2, right = 1
+            // Current state of matrix:
+            /*
+              [1, 2, 3]
+              [4, 5, 6]
+              [7, 8, 9]
+            */
+
+            // **Step 3: Traverse from Right to Left** (only if we have rows left)
+            if (top <= bottom) {
+                for (int i = right; i >= left; i--) {
+                    ans.push_back(matrix[bottom][i]);  // Add elements in the bottom row.
+                }
+                bottom--;  // Move bottom boundary up.
+            }
+
+            // After this step:
+            // ans = [1, 2, 3, 6, 9, 8, 7]
+            // top = 1, left = 0, bottom = 1, right = 1
+            // Current state of matrix:
+            /*
+              [1, 2, 3]
+              [4, 5, 6]
+              [7, 8, 9]
+            */
+
+            // **Step 4: Traverse from Bottom to Top** (only if we have columns left)
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--) {
+                    ans.push_back(matrix[i][left]);  // Add elements in the left column.
+                }
+                left++;  // Move left boundary right.
+            }
+
+            // After this step:
+            // ans = [1, 2, 3, 6, 9, 8, 7, 4]
+            // top = 1, left = 1, bottom = 1, right = 1
+            // Current state of matrix:
+            /*
+              [1, 2, 3]
+              [4, 5, 6]
+              [7, 8, 9]
+            */
+
+            // **Final pass for the middle element** (if any):
+            for (int i = left; i <= right; i++) {
+                ans.push_back(matrix[top][i]);
+            }
+
+            // After this step:
+            // ans = [1, 2, 3, 6, 9, 8, 7, 4, 5]
+            // top = 2, left = 1, bottom = 1, right = 0 (exit condition met)
+            // Current state of matrix:
+            /*
+              [1, 2, 3]
+              [4, 5, 6]
+              [7, 8, 9]
+            */
+
+        }
+        return ans;  // Return the result array.
+    }
+};
+
+// Final output: ans = [1, 2, 3, 6, 9, 8, 7, 4, 5]
