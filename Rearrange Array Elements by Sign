@@ -1,0 +1,89 @@
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+        int n = nums.size(); // Example: nums = [3, -1, 2, -2, 4, -3]
+        vector<int> ans(n, 0); // Initialize the answer array with zeros
+        int pos = 0; // Position for positive numbers
+        int neg = 1; // Position for negative numbers
+
+        // Initial state:
+        // nums = [3, -1, 2, -2, 4, -3]
+        // ans = [0, 0, 0, 0, 0, 0]
+        // pos = 0, neg = 1
+
+        for (int i = 0; i < n; i++) { // Iterate through each element in nums
+            // Current iteration index i and value:
+            // i = 0: nums[0] = 3
+            if (nums[i] < 0) { // Check if the current number is negative
+                // This condition is false (3 is not negative)
+                ans[pos] = nums[i]; // (Not executed)
+                pos += 2; // (Not executed)
+            } else { // If the number is positive
+                ans[pos] = nums[i]; // Place 3 in ans[0]
+                pos += 2; // Move pos to the next even index
+                // State after i = 0:
+                // ans = [3, 0, 0, 0, 0, 0]
+                // pos = 2
+            }
+
+            // i = 1: nums[1] = -1
+            if (nums[i] < 0) { // Check if the current number is negative
+                ans[neg] = nums[i]; // Place -1 in ans[1]
+                neg += 2; // Move neg to the next odd index
+                // State after i = 1:
+                // ans = [3, -1, 0, 0, 0, 0]
+                // neg = 3
+            } else { // (Not executed since -1 is negative)
+                // (Not executed)
+            }
+
+            // i = 2: nums[2] = 2
+            if (nums[i] < 0) { // Check if the current number is negative
+                // This condition is false (2 is not negative)
+                // (Not executed)
+            } else { // If the number is positive
+                ans[pos] = nums[i]; // Place 2 in ans[2]
+                pos += 2; // Move pos to the next even index
+                // State after i = 2:
+                // ans = [3, -1, 2, 0, 0, 0]
+                // pos = 4
+            }
+
+            // i = 3: nums[3] = -2
+            if (nums[i] < 0) { // Check if the current number is negative
+                ans[neg] = nums[i]; // Place -2 in ans[3]
+                neg += 2; // Move neg to the next odd index
+                // State after i = 3:
+                // ans = [3, -1, 2, -2, 0, 0]
+                // neg = 5
+            } else { // (Not executed since -2 is negative)
+                // (Not executed)
+            }
+
+            // i = 4: nums[4] = 4
+            if (nums[i] < 0) { // Check if the current number is negative
+                // This condition is false (4 is not negative)
+                // (Not executed)
+            } else { // If the number is positive
+                ans[pos] = nums[i]; // Place 4 in ans[4]
+                pos += 2; // Move pos to the next even index
+                // State after i = 4:
+                // ans = [3, -1, 2, -2, 4, 0]
+                // pos = 6
+            }
+
+            // i = 5: nums[5] = -3
+            if (nums[i] < 0) { // Check if the current number is negative
+                ans[neg] = nums[i]; // Place -3 in ans[5]
+                neg += 2; // Move neg to the next odd index (not needed anymore)
+                // State after i = 5:
+                // ans = [3, -1, 2, -2, 4, -3]
+                // neg = 7 (exceeds bounds, but this will be ignored)
+            } else { // (Not executed since -3 is negative)
+                // (Not executed)
+            }
+        }
+
+        return ans; // Return the rearranged array
+    }
+};
