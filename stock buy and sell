@@ -1,0 +1,61 @@
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();       // Number of days in prices array
+        int mini = prices[0];         // Initialize minimum price to the first day's price
+        int profit = 0;               // Initialize max profit to 0
+
+        // Loop through each price in the array
+        for (int i = 0; i < n; i++) {
+            // Dry run example prices = [7, 1, 5, 3, 6, 4]
+            
+            // Calculate profit if bought at `mini` and sold on day `i`
+            int cost = prices[i] - mini;
+
+            // Update profit to maximum profit so far
+            profit = max(profit, cost);
+
+            // Update `mini` to minimum price seen up to day `i`
+            mini = min(mini, prices[i]);
+
+            // Dry run at each iteration:
+            // i = 0 -> prices[0] = 7
+            // mini = min(7, 7) = 7
+            // cost = 7 - 7 = 0
+            // profit = max(0, 0) = 0
+
+            // i = 1 -> prices[1] = 1
+            // mini = min(7, 1) = 1
+            // cost = 1 - 1 = 0
+            // profit = max(0, 0) = 0
+
+            // i = 2 -> prices[2] = 5
+            // mini = min(1, 5) = 1
+            // cost = 5 - 1 = 4
+            // profit = max(0, 4) = 4
+
+            // i = 3 -> prices[3] = 3
+            // mini = min(1, 3) = 1
+            // cost = 3 - 1 = 2
+            // profit = max(4, 2) = 4
+
+            // i = 4 -> prices[4] = 6
+            // mini = min(1, 6) = 1
+            // cost = 6 - 1 = 5
+            // profit = max(4, 5) = 5
+
+            // i = 5 -> prices[5] = 4
+            // mini = min(1, 4) = 1
+            // cost = 4 - 1 = 3
+            // profit = max(5, 3) = 5
+        }
+        
+        return profit;                 // Return the maximum profit, which is 5
+    }
+};
+
+// Explanation of final profit: Buying at 1 (mini) and selling at 6 yields a maximum profit of 5.
