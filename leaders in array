@@ -1,0 +1,36 @@
+for(i=0;i<n;i++)
+{
+  leader = true;
+  for(int j=i+1;j<n;j++)
+  {
+     if(a[j]>a[i])
+{
+    leader = false;
+    break ;
+}
+if(leader == true) 
+{
+   ans.add(a[i])
+
+t.c= o(n^2)
+
+----------------------------------------------------------------
+optimal :
+
+
+vector<int> superiorElements(vector<int>&a) {
+    vector<int>ans;
+    int maxi = INT_MIN;
+    int n = a.size();
+    for(int i=n-1;i>=0;i--)
+    {
+        if(a[i]>maxi)
+        {
+            ans.push_back(a[i]);
+        }
+        maxi = max(maxi,a[i]);
+    }
+
+    sort(ans.begin(),ans.end());
+    return ans;
+}
